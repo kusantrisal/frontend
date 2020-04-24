@@ -1,0 +1,24 @@
+<div fxLayoutAlign="center center" class="display-box">
+  <mat-card fxFlex="60">
+    <h1 style="text-align: center;">Sign in to App</h1>
+{{loginForm.value| json}}
+    <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="loginForm" (ngSubmit)="signIn()">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password"/>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" >Sign In</button>
+
+      <div style="padding-top: 1rem;">
+        <a style="float: right;" mat-button routerLink=".">Need help</a>
+      </div>
+    </form></mat-card
+  >
+
+</div>

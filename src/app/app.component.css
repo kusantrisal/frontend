@@ -1,0 +1,33 @@
+
+
+/*
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+} */
+
+.navbar {
+  justify-content: space-between;
+  height: 2.8rem;
+}
+
+span {
+  padding-right: 1rem;
+  font-size: medium;
+
+  font-weight:normal;
+  font-style: normal;
+  cursor: pointer;
+  display:inline-block;
+  outline: none;
+}
+span.active {
+  color: lightgray;
+}
+span:hover {
+  color: lightgray;
+}
+
+* {
+  font-family: Arial, sans-serif;
+ }

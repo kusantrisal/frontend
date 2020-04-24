@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "zerotoheroquick-frontend": {
@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "zerotoheroquick-frontend"
+    }
+  },
+  "defaultProject": "zerotoheroquick-frontend",
+  "cli": {
+    "analytics": "da1dc5b8-5a59-4f84-87b3-c4f87bd01a54"
+  }
 }
