@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
 import { Router } from '@angular/router';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private httpService: HttpService, private router: Router) { }
+  constructor(private httpService: HttpService, private router: Router, private storageService: StorageService) { }
 
   isAuthenticated() {
     // console.log(new Date(localStorage.getItem('expires')).toLocaleString('en-US', {timeZone: 'America/New_York'}));
@@ -22,9 +23,7 @@ export class AuthService {
   }
 
   logout() {
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('refresh_token');
-    sessionStorage.removeItem('expires');
+    this.storageService.removeTokenFromSessionStorage();
     this.router.navigate(['/home']);
   }
 }

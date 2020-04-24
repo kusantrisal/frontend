@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, filter, take, switchMap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private storageService: StorageService) { }
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
@@ -29,7 +30,7 @@ export class InterceptorService implements HttpInterceptor {
     }));
   }
 
-//the magic of refreshing token.
+  //the magic of refreshing token.
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
@@ -38,12 +39,7 @@ export class InterceptorService implements HttpInterceptor {
       return this.authService.refreshToken().pipe(
         switchMap((res: any) => {
           this.isRefreshing = false;
-          console.log('Caching refreshed token which gave extention until ' + res.expires);
-          console.log(res);
-          sessionStorage.setItem('access_token', res.access_token as string);
-          sessionStorage.setItem('refresh_token', res.refresh_token as string);
-          sessionStorage.setItem('expires', res.expires);
-
+          this.storageService.saveTokenInSessionStorage(res.access_token, res.refresh_token, res.expires);
           this.refreshTokenSubject.next(res.access_token);
           return next.handle(this.addToken(request, res.access_token));
         }));

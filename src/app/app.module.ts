@@ -13,6 +13,8 @@ import { AuthGuard } from './service/guard/auth.guard';
 import { AuthService } from './service/auth/auth.service';
 import { InterceptorService } from './service/http-interceptor/interceptor.service';
 import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -28,8 +30,8 @@ import { HomeComponent } from './home/home.component';
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    HttpClientModule
-
+    HttpClientModule,
+    FormsModule
   ],
   providers: [AuthService, AuthGuard, {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
   bootstrap: [AppComponent]

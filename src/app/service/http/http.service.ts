@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HttpService {
-  url = 'http://localhost:8081/auth/oauth/token'
+  url = 'http://localhost:8081';
   clientId = 'app';
   clientSecret = 'pass';
   constructor(private http: HttpClient) { }
@@ -21,16 +21,15 @@ export class HttpService {
       .set('password', userData.value.password)
       .set('grant_type', userData.value.grantType);
 
-    return this.http.post<any>(this.url, body, { headers: header, withCredentials: true, responseType: 'json' });
+    return this.http.post<any>(this.url + '/auth/oauth/token', body, { headers: header, withCredentials: true, responseType: 'json' });
   }
 
   checkToken() {
-    return this.http.get('http://localhost:8081/auth/oauth/check_token?token=' + sessionStorage.getItem('access_token'));
+    return this.http.get(this.url + '/auth/oauth/check_token?token=' + sessionStorage.getItem('access_token'));
   }
 
   refreshToken() {
     console.log('Token refresh api is being called');
-    const url = 'http://localhost:8081/auth/oauth/token';
     const header = new HttpHeaders()
       .set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Access-Control-Allow-Origin', '*');
@@ -42,10 +41,10 @@ export class HttpService {
       .set('grant_type', 'refresh_token')
       .set('refresh_token', sessionStorage.getItem('refresh_token'));
 
-    return this.http.post<any>(url, body, { headers: header, withCredentials: true, responseType: 'json' });
+    return this.http.post<any>(this.url + '/auth/oauth/token', body, { headers: header, withCredentials: true, responseType: 'json' });
   }
 
   getUser() {
-    return this.http.get('http://localhost:8081/auth/getPrincipal');
+    return this.http.get('http://localhost:8082/resource2/secure');
   }
 }

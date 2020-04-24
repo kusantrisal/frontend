@@ -16,7 +16,7 @@ $zerotoheroquick-frontend-primary: mat-palette($mat-grey, 800);
 $zerotoheroquick-frontend-accent: mat-palette($mat-green, 700);
 
 // The warn palette is optional (defaults to red).
-$zerotoheroquick-frontend-warn: mat-palette($mat-red);
+$zerotoheroquick-frontend-warn: mat-palette($mat-red, 700);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $zerotoheroquick-frontend-theme: mat-light-theme($zerotoheroquick-frontend-primary, $zerotoheroquick-frontend-accent, $zerotoheroquick-frontend-warn);
