@@ -185,15 +185,16 @@ export class SecureComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    // this.httpService.getUser().subscribe(
-    //   res => {
-    //     console.log(res);
-    //     this.response = res;
-    //   },
-    //   err => {
-    //     this.router.navigate(["/signin"]);
-    //   }
-    // );
+    this.httpService.getUser().subscribe(
+      res => {
+        console.log('response from secure api')
+        console.log(res);
+        this.response = res;
+      },
+      err => {
+        this.router.navigate(["/signin"]);
+      }
+    );
   }
 
   ngOnDestroy(): void {

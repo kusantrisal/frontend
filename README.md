@@ -26,4 +26,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-# Kill running instance on the port netstat -ano|findstr "PID :8081
+# Notes:
+## Access token is saved in session storage when sing is triggered
+# Kill running instance on the port netstat -ano|findstr :8081
+# taskkill /PID PORT_NUMBER /F

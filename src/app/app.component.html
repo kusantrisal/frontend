@@ -2,6 +2,8 @@
   <div>
     <span routerLink="/home" routerLinkActive="active">Home</span>
     <span routerLink="/secure" routerLinkActive="active" *ngIf="authService.isAuthenticated()" >Secure</span>
+    <span routerLink="/maestro" routerLinkActive="active" *ngIf="authService.isAuthenticated()" >Maestro</span>
+
   </div>
   <div>
     <span routerLink="/signin" routerLinkActive="active" *ngIf="!authService.isAuthenticated()" >Sign in</span>

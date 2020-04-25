@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SecureComponent } from './secure/secure.component';
+import { ProfileComponent } from './maestro/profile/profile.component';
 import { AuthGuard } from './service/guard/auth.guard';
 import { HomeComponent } from './home/home.component';
 
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'secure', component: SecureComponent, canActivate: [AuthGuard] },
+  { path: 'maestro', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent }
 ];

@@ -14,6 +14,7 @@ import { AuthService } from './service/auth/auth.service';
 import { InterceptorService } from './service/http-interceptor/interceptor.service';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { MaestroModule } from './maestro/maestro.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MaestroModule
   ],
   providers: [AuthService, AuthGuard, {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
   bootstrap: [AppComponent]

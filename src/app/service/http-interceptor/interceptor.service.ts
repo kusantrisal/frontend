@@ -14,7 +14,7 @@ export class InterceptorService implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   intercept(req, next) {
-    console.log(req);
+   // console.log(req);
     if (req.withCredentials) {
       return next.handle(req);
     }
