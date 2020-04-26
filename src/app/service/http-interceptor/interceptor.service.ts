@@ -1,9 +1,10 @@
 import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, filter, take, switchMap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { StorageService } from '../storage/storage.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,25 +14,32 @@ export class InterceptorService implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  intercept(req, next) {
-   // console.log(req);
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+
     if (req.withCredentials) {
       return next.handle(req);
     }
+
     const tokenizedReq = req.clone({
       setHeaders: {
         Authorization: 'Bearer ' + sessionStorage.getItem('access_token')
       }
     });
-    return next.handle(tokenizedReq).pipe(catchError(error => {
-      if (error instanceof HttpErrorResponse && error.status === 401) {
-        return this.handle401Error(req, next);
-      }
-    }));
+
+    return next.handle(tokenizedReq)
+      .pipe(
+        catchError(error => {
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            return this.handle401Error(req, next);
+          }
+          return throwError(error.message);
+        }
+        ));
   }
 
   //the magic of refreshing token.
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    console.log('Refreshing token')
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);

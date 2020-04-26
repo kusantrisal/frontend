@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../service/http.service';
+import { AddMember } from '../actions/member.actions';
+import { Store } from '@ngxs/store';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -8,25 +11,21 @@ import { HttpService } from '../service/http.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private store: Store, private router: Router) { }
   memberInfo = {};
   ngOnInit(): void {
+    //create user in maestro portal if it doesn't exist already
+    this.httpService.getMember().subscribe(res => { this.memberInfo = res; this.addMemberToStore(res); }, err => {
+      this.httpService.createMember().subscribe(res => this.memberInfo = res, err => console.log(err))
+    });
 
-    this.httpService.getMember().subscribe(
-      res => this.memberInfo = res,
-      err => {
-        console.log('Error' + err.message);
-        this.httpService.createMember().subscribe(
-          res => this.memberInfo = res,
-          err => {
-            console.log("Unable to create member " + err.message);
-          });
-      });
-
-    this.httpService.testApi().subscribe(
-      res => { console.log('Getting response'); this.memberInfo = res; },
-      error => { console.log('Getting Error ' + error); },
-      () => console.log('Completed'));
   }
 
+  addMemberToStore(member) {
+    this.store.dispatch([new AddMember(member)]);
+  }
+
+  getResources() {
+    this.router.navigate(["/maestro/resource"]);
+  }
 }

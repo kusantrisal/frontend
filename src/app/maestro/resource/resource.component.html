@@ -1,0 +1,17 @@
+{{formGroup}}
+
+<form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
+  <input type="file" (change)='onFileSelected($event)'>
+    <!-- <button type="submit" >Submit</button> -->
+    <button type="submit">Submit</button>
+</form> 
+
+
+<Pre>{{memberState$ | async | json}}</Pre>
+<div class="example-button-row">
+    <button mat-button (click)="removeMemberFromState()"> Remove member
+        from state</button>
+    <!-- <button mat-button *ngIf="(memberState$ | async) as memberState" (click)="getResoucesByMemberUuid(memberState.member.memberUuid)">Get Resources</button> -->
+    <button mat-button (click)="getResoucesByMemberUuid()">Get Resources</button>
+
+</div>

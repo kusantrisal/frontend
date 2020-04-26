@@ -24,7 +24,7 @@ export class SigninComponent implements OnInit {
   signIn() {
     this.httpService.signIn(this.loginForm).subscribe(res => {
       this.storageService.saveTokenInSessionStorage(res.access_token, res.refresh_token, res.expires);
-      this.router.navigate(['/secure']);
+      this.router.navigate(['/maestro']);
     }, err => {
       console.error(err);
     });

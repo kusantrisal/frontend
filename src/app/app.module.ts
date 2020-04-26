@@ -36,6 +36,9 @@ import { MaestroModule } from './maestro/maestro.module';
     MaestroModule
   ],
   providers: [AuthService, AuthGuard, {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    MaterialModule
+  ]
 })
 export class AppModule { }
