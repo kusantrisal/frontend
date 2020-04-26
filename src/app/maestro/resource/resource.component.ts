@@ -7,7 +7,7 @@ import { MemberState } from '../state/member.state';
 import { RemoveMember, AddResource } from '../actions/member.actions';
 import { HttpService } from '../service/http.service';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -17,7 +17,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ResourceComponent implements OnInit {
 
-  @Select(state => state.member) memberState$: Observable<Member>;
+  @Select(state => state.member) memberState$;
   //OR use below line use use method from MemberStatus
   //@Select(MemberState.getMember) member$: Observable<Member>
 
@@ -27,10 +27,11 @@ export class ResourceComponent implements OnInit {
     file: [null, Validators.required]
   });
 
-  constructor(public authService: AuthService, private store: Store, private httpService: HttpService, private fb: FormBuilder, private cd: ChangeDetectorRef) {
+  constructor(public authService: AuthService, private store: Store, private httpService: HttpService, private fb: FormBuilder, private cd: ChangeDetectorRef, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.memberState$.subscribe(mem => { if (!mem.member.memberUuid) this.router.navigate(['maestro']) })
     this.getResoucesByMemberUuid();
   }
 
@@ -54,11 +55,9 @@ export class ResourceComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Submitting for')
-    console.log(this.formGroup)
     this.formGroup.value.name = this.selectedFile.name;
     this.formGroup.value.file = this.selectedFile;
-    this.httpService.addResource(this.formGroup.value).subscribe(res => console.log(res));
+    this.httpService.addResource(this.formGroup.value).subscribe(res => this.getResoucesByMemberUuid());
   }
 
   //sample to alter state
