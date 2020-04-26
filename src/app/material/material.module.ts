@@ -15,10 +15,26 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+
 
 const material = [MatButtonModule,
   MatCheckboxModule,
-  MatCardModule, MatToolbarModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatSidenavModule, MatListModule, MatIconModule, MatTableModule, MatPaginatorModule, MatGridListModule, MatButtonToggleModule, MatChipsModule, MatProgressBarModule];
+  MatTabsModule,
+  MatCardModule,
+  MatToolbarModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatInputModule,
+  MatSidenavModule,
+  MatListModule,
+  MatIconModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatGridListModule,
+  MatButtonToggleModule,
+  MatChipsModule,
+  MatProgressBarModule];
 @NgModule({
   imports: [material],
   exports: [material]

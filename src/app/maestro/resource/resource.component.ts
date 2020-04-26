@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { AuthService } from './../../service/auth/auth.service';
 import { Member } from '../model/member.model';
 import { Observable } from 'rxjs';
-import { MemberState } from '../state/member.state';
+//import { memberStateResources } from '../state/member.state';
 import { RemoveMember, AddResource } from '../actions/member.actions';
 import { HttpService } from '../service/http.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators'
 import { HttpEventType } from '@angular/common/http';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-resource',
@@ -20,9 +21,9 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
 })
 export class ResourceComponent implements OnInit {
 
-  @Select(state => state.member.resources) memberState$;
+  @Select(state => state.member.resources) memberStateResources$;
   //OR use below line use use method from MemberStatus
-  //@Select(MemberState.getMember) member$: Observable<Member>
+  //@Select(memberStateResources.getMember) member$: Observable<Member>
 
   resources = [];
   selectedFile: File = null;
@@ -30,11 +31,11 @@ export class ResourceComponent implements OnInit {
     file: [null, Validators.required]
   });
   value = 0;
-  constructor(public authService: AuthService, private store: Store, private httpService: HttpService, private fb: FormBuilder, private cd: ChangeDetectorRef, private router: Router) {
+  constructor(public authService: AuthService, private store: Store, private httpService: HttpService, private fb: FormBuilder, private cd: ChangeDetectorRef, private router: Router, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
-    this.memberState$.pipe(first()).subscribe(res => { console.log(res); if (res.length == 0) this.getResoucesByMemberUuid(); })
+    this.memberStateResources$.pipe(first()).subscribe(res => { console.log(res); if (res.length == 0) this.getResoucesByMemberUuid(); })
 
   }
 
@@ -58,22 +59,31 @@ export class ResourceComponent implements OnInit {
     this.selectedFile = <File>event.target.files[0];
   }
 
-  onSubmit() {
+  onSubmit(event) {
     this.value = 0;
-    this.formGroup.value.name = this.selectedFile.name;
-    this.formGroup.value.file = this.selectedFile;
-    this.httpService.addResource(this.formGroup.value).subscribe(
-      events => {
-        if (events.type === HttpEventType.UploadProgress) {
-       //   console.log(Math.round(events.loaded / events.total * 100) + '%');
-          this.value = Math.round(events.loaded / events.total * 100);
-
-        } else if (events.type === HttpEventType.Response) {
-          this.getResoucesByMemberUuid();
+    // this.formGroup.value.name = this.selectedFile.name;
+    // this.formGroup.value.file = this.selectedFile;
+    this.selectedFile = <File>event.target.files[0];
+    
+    if(this.selectedFile) {
+      this.httpService.addResource(this.selectedFile).subscribe(
+        events => {
+          if (events.type === HttpEventType.UploadProgress) {
+            //   console.log(Math.round(events.loaded / events.total * 100) + '%');
+            this.value = Math.round(events.loaded / events.total * 100);
+  
+          } else if (events.type === HttpEventType.Response) {
+            this.getResoucesByMemberUuid();
+          }
+  
         }
+      );
+    }
 
-      }
-    );
+  }
+
+  public getSantizeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   //sample to alter state

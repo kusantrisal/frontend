@@ -35,21 +35,25 @@ export class HttpService {
     return this.http.post(this.MAESTRO_BASE_URL + '/member/createMember', { headers: header, withCredentials: true, responseType: 'json' });
   }
 
+  updatemember(formControlName, value) {
+
+    const body = new HttpParams()
+      .set('key', formControlName)
+      .set('value', value);
+
+    return this.http.post(this.MAESTRO_BASE_URL + '/member/updateMemberValue', body, { withCredentials: false, responseType: 'json' });
+  }
+
   getResourcesByMemberUuid() {
     return this.http.get(this.MAESTRO_BASE_URL + '/resource/getResourcesByMemberUuid', { withCredentials: false, responseType: 'json' });
   }
 
   addResource(data) {
-    console.log(data)
     const fd = new FormData();
     fd.append('name', data.name || 'resourceName');
-    fd.append('file', data.file);
+    fd.append('file', data);
 
-    const body = new HttpParams()
-      .set('name', data.name)
-      .set('file', data.file);
-
-    return this.http.post(this.MAESTRO_BASE_URL + '/resource/addResource', fd, { reportProgress: true, observe: 'events'});
+    return this.http.post(this.MAESTRO_BASE_URL + '/resource/addResource', fd, { reportProgress: true, observe: 'events' });
   }
 
 
