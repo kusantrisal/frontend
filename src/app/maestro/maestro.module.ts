@@ -8,12 +8,14 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { ResourceComponent } from './resource/resource.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [ProfileComponent, ResourceComponent],
   imports: [
     CommonModule,
     MaterialModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
     NgxsModule.forRoot([
       MemberState

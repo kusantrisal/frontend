@@ -49,7 +49,7 @@ export class HttpService {
       .set('name', data.name)
       .set('file', data.file);
 
-    return this.http.post(this.MAESTRO_BASE_URL + '/resource/addResource', fd);
+    return this.http.post(this.MAESTRO_BASE_URL + '/resource/addResource', fd, { reportProgress: true, observe: 'events'});
   }
 
 

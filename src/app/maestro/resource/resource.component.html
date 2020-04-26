@@ -1,10 +1,10 @@
-{{formGroup}}
-
 <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
   <input type="file" (change)='onFileSelected($event)'>
     <!-- <button type="submit" >Submit</button> -->
     <button type="submit">Submit</button>
 </form> 
+
+<mat-progress-bar mode="determinate" value={{value}}></mat-progress-bar>
 
 
 <Pre>{{memberState$ | async | json}}</Pre>
@@ -13,5 +13,6 @@
         from state</button>
     <!-- <button mat-button *ngIf="(memberState$ | async) as memberState" (click)="getResoucesByMemberUuid(memberState.member.memberUuid)">Get Resources</button> -->
     <button mat-button (click)="getResoucesByMemberUuid()">Get Resources</button>
+
 
 </div>

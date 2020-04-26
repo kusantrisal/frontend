@@ -5,4 +5,5 @@ export interface Member {
     phone?: string;
     firstName?: string;
     lastName?: string;
+    profilePic?: string;
 }

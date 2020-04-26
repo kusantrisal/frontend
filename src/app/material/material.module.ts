@@ -10,14 +10,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const material = [MatButtonModule,
   MatCheckboxModule,
-  MatCardModule, MatToolbarModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatSidenavModule, MatListModule, MatIconModule, MatTableModule, MatPaginatorModule, MatGridListModule, MatButtonToggleModule, MatChipsModule];
+  MatCardModule, MatToolbarModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatSidenavModule, MatListModule, MatIconModule, MatTableModule, MatPaginatorModule, MatGridListModule, MatButtonToggleModule, MatChipsModule, MatProgressBarModule];
 @NgModule({
   imports: [material],
   exports: [material]

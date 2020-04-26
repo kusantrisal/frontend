@@ -8,7 +8,10 @@ import { RemoveMember, AddResource } from '../actions/member.actions';
 import { HttpService } from '../service/http.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
-
+import { first } from 'rxjs/operators'
+import { HttpEventType } from '@angular/common/http';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-resource',
@@ -17,7 +20,7 @@ import { Router } from "@angular/router";
 })
 export class ResourceComponent implements OnInit {
 
-  @Select(state => state.member) memberState$;
+  @Select(state => state.member.resources) memberState$;
   //OR use below line use use method from MemberStatus
   //@Select(MemberState.getMember) member$: Observable<Member>
 
@@ -26,17 +29,18 @@ export class ResourceComponent implements OnInit {
   formGroup = this.fb.group({
     file: [null, Validators.required]
   });
-
+  value = 0;
   constructor(public authService: AuthService, private store: Store, private httpService: HttpService, private fb: FormBuilder, private cd: ChangeDetectorRef, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.memberState$.subscribe(mem => { if (!mem.member.memberUuid) this.router.navigate(['maestro']) })
-    this.getResoucesByMemberUuid();
+    this.memberState$.pipe(first()).subscribe(res => { console.log(res); if (res.length == 0) this.getResoucesByMemberUuid(); })
+
   }
 
   getResoucesByMemberUuid() {
     this.httpService.getResourcesByMemberUuid()
+      .pipe(first())
       .subscribe(
         res => { this.resources.concat(res); this.addResourcesToStore(res); },
         err => console.log(err));
@@ -55,9 +59,21 @@ export class ResourceComponent implements OnInit {
   }
 
   onSubmit() {
+    this.value = 0;
     this.formGroup.value.name = this.selectedFile.name;
     this.formGroup.value.file = this.selectedFile;
-    this.httpService.addResource(this.formGroup.value).subscribe(res => this.getResoucesByMemberUuid());
+    this.httpService.addResource(this.formGroup.value).subscribe(
+      events => {
+        if (events.type === HttpEventType.UploadProgress) {
+       //   console.log(Math.round(events.loaded / events.total * 100) + '%');
+          this.value = Math.round(events.loaded / events.total * 100);
+
+        } else if (events.type === HttpEventType.Response) {
+          this.getResoucesByMemberUuid();
+        }
+
+      }
+    );
   }
 
   //sample to alter state

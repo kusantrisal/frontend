@@ -1,2 +1,42 @@
-<pre>{{memberInfo | json }}</pre>
-<button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="getResources()"> Get Resources</button>
+
+
+<!-- Display Profile -->
+<div>
+
+    <div fxLayout="row wrap " fxLayoutAlign="center center">
+
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+memberInfo.profilePicPreSignedUrl+')'"></div>
+              <!-- <img class="image-holder" [src]=getSantizeUrl(profilePic) />  -->
+              <mat-card-title>{{memberInfo.firstName + ' ' + memberInfo.lastName}}</mat-card-title>
+              <mat-card-subtitle>member since {{memberInfo.createDate}}</mat-card-subtitle>
+            </mat-card-header>
+             <!-- <img mat-card-image [src]="note.image" alt="someimage">  -->
+            <mat-card-content>
+              <p>
+                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                bred for hunting.
+              </p>
+            </mat-card-content>
+  
+            <mat-card-actions>
+              <mat-chip-list aria-label="Fish selection">
+                <mat-chip color="warn" selected>InReview</mat-chip>
+                <mat-chip color="primary">InProgress</mat-chip>
+                <mat-chip color="accent" selected>Done</mat-chip>
+              </mat-chip-list>
+            </mat-card-actions>
+          </mat-card>
+
+      </div>
+</div>
+
+<pre>{{memberInfo | json }}</pre> 
+
+<button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="showResources()"> Show Resources</button>
+
+<div *ngIf='showResourcesFlag'>
+    <app-resource></app-resource>
+</div>

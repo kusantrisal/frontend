@@ -3,6 +3,7 @@ import { HttpService } from '../service/http.service';
 import { AddMember } from '../actions/member.actions';
 import { Store } from '@ngxs/store';
 import { Router } from "@angular/router";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -10,14 +11,22 @@ import { Router } from "@angular/router";
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor(private httpService: HttpService, private store: Store, private router: Router) { }
+  showResourcesFlag: boolean;
+  constructor(private httpService: HttpService, private store: Store, private router: Router, private sanitizer: DomSanitizer) { }
   memberInfo = {};
+
   ngOnInit(): void {
     //create user in maestro portal if it doesn't exist already
-    this.httpService.getMember().subscribe(res => { this.memberInfo = res; this.addMemberToStore(res); }, err => {
-      this.httpService.createMember().subscribe(res => this.memberInfo = res, err => console.log(err))
-    });
+    this.httpService.getMember().subscribe(
+      res => {
+        this.memberInfo = res;
+        this.addMemberToStore(res);
+      },
+      err => {
+        this.httpService.createMember().subscribe(
+          res => this.memberInfo = res,
+          err => console.log(err))
+      });
 
   }
 
@@ -25,7 +34,12 @@ export class ProfileComponent implements OnInit {
     this.store.dispatch([new AddMember(member)]);
   }
 
-  getResources() {
-    this.router.navigate(["/maestro/resource"]);
+  public getSantizeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  showResources() {
+    this.showResourcesFlag = !this.showResourcesFlag;
+    //  this.router.navigate(["/maestro/resource"]);
   }
 }
