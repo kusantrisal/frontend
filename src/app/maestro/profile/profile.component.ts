@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         mem => {
           console.log(mem.member)
-          if ((mem.member.memberUuid !== null || mem.member.memberUuid !== '') && forceGetMember) {
+          if ((mem.member.memberUuid === null || mem.member.memberUuid === '') && forceGetMember) {
             this.httpService.getMember().subscribe(
               res => {
                 this.memberInfo = res;

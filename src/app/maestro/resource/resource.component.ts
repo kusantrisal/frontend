@@ -13,6 +13,7 @@ import { HttpEventType } from '@angular/common/http';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-resource',
@@ -27,11 +28,15 @@ export class ResourceComponent implements OnInit {
 
   resources = [];
   selectedFile: File = null;
-  formGroup = this.fb.group({
-    file: [null, Validators.required]
-  });
   value = 0;
-  constructor(public authService: AuthService, private store: Store, private httpService: HttpService, private fb: FormBuilder, private cd: ChangeDetectorRef, private router: Router, private sanitizer: DomSanitizer) {
+  constructor(public authService: AuthService,
+    private _snackBar: MatSnackBar,
+    private store: Store,
+    private httpService: HttpService,
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef,
+    private router: Router,
+    private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -43,39 +48,48 @@ export class ResourceComponent implements OnInit {
     this.httpService.getResourcesByMemberUuid()
       .pipe(first())
       .subscribe(
-        res => { this.resources.concat(res); this.addResourcesToStore(res); },
+        res => {
+          this.resources.concat(res);
+          this.addResourcesToStore(res);
+        },
         err => console.log(err));
 
   }
 
   addResourcesToStore(resources) {
+    resources.map(res => {
+      let oldRes = res;
+      oldRes.createDate = new Date(res.createDate)
+      return oldRes;
+    })
     this.store.dispatch([new AddResource(resources)]);
   }
 
 
   //file upload
   onFileSelected(event) {
-    //  console.log(this.formGroup)
     this.selectedFile = <File>event.target.files[0];
   }
 
   onSubmit(event) {
     this.value = 0;
-    // this.formGroup.value.name = this.selectedFile.name;
-    // this.formGroup.value.file = this.selectedFile;
     this.selectedFile = <File>event.target.files[0];
-    
-    if(this.selectedFile) {
+
+    if (this.selectedFile) {
       this.httpService.addResource(this.selectedFile).subscribe(
         events => {
           if (events.type === HttpEventType.UploadProgress) {
             //   console.log(Math.round(events.loaded / events.total * 100) + '%');
             this.value = Math.round(events.loaded / events.total * 100);
-  
+
           } else if (events.type === HttpEventType.Response) {
+            this._snackBar.open('File uploaded', 'Enjoy', {
+              duration: 4000,
+            });
+            this.value = 0;
             this.getResoucesByMemberUuid();
           }
-  
+
         }
       );
     }

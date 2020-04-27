@@ -30,8 +30,7 @@ export class MemberState {
         const state = getState();
         patchState({
             username: payload.firstName,
-            member: payload,
-            resources: []
+            member: payload
         })
     }
 

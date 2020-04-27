@@ -1,7 +1,7 @@
 <!-- Display Profile -->
 <div>
 
-  <div fxLayout="row" fxLayoutAlign="center none">
+  <div fxLayout="row" fxLayoutAlign="center center">
     <!--
       if we want bigger circal of image
       <div>
@@ -9,9 +9,9 @@
         style="border-radius: 50%;width:200px; height: 30em; width: 30em;vertical-align: middle;" alt="Avatar">
     </div>
 <br> -->
-    <div fxFlex="75%" fxFlex.lt-lg="">
-      <mat-card class="example-card">
-        <img mat-card-image [src]="getSantizeUrl(memberInfo.profilePicPreSignedUrl)">
+    <div fxFlex="80%" >
+      <!-- <img class="cover" mat-card-image [src]="getSantizeUrl(memberInfo.profilePicPreSignedUrl)"> -->
+      <mat-card class="example-card">      
         <mat-card-header>
 
           <div mat-card-avatar class="example-header-image"
@@ -50,9 +50,10 @@
           </form>
 
         </mat-card-content>
-        
-        <div style="text-align: center;">
-          <mat-tab-group >
+
+        <!-- <div style="text-align: center;"> -->
+        <div>
+          <mat-tab-group>
             <mat-tab label="Resources">
               <app-resource></app-resource>
             </mat-tab>
@@ -73,8 +74,8 @@
 
 <!-- <pre>{{memberInfo | json }}</pre> -->
 
-<button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="showResources()"> Show Resources</button>
+<!-- <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="showResources()"> Show Resources</button>
 
 <div *ngIf='showResourcesFlag'>
   <app-resource></app-resource>
-</div>
+</div> -->

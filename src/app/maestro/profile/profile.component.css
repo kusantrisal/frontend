@@ -1,20 +1,12 @@
 .example-card {
   border: none;
-  min-height: auto;
+
 }
 .example-header-image {
-  /* background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');  */
   background-size: contain;
-  /* background-repeat: no-repeat;
-  background-position: center center; */
 }
 
-::ng-deep .mat-card {
-  /* 
-  border: 55px solid #000; */
-  border-radius: 0 !important;
-  /* border: #000 !important; */
-}
+
 
 .example-form {
   min-width: 150px;
@@ -24,4 +16,11 @@
 
 .example-full-width {
   width: 100%;
+}
+
+.cover {
+  margin: auto;
+  min-width: 80%;
+  height: 400px;
+  object-fit: cover;
 }
