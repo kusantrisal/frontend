@@ -19,6 +19,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
+
 const material = [MatButtonModule,
   MatCheckboxModule,
   MatTabsModule,

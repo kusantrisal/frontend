@@ -9,6 +9,7 @@ import { ResourceComponent } from './resource/resource.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ProfileComponent, ResourceComponent],
@@ -17,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxsModule.forRoot([
       MemberState
     ]),

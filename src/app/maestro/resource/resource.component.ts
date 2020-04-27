@@ -29,6 +29,12 @@ export class ResourceComponent implements OnInit {
   resources = [];
   selectedFile: File = null;
   value = 0;
+
+  // checked = false;
+  // indeterminate = false;
+  // labelPosition: 'before' | 'after' = 'after';
+  // disabled = false;
+
   constructor(public authService: AuthService,
     private _snackBar: MatSnackBar,
     private store: Store,
