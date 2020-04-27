@@ -9,9 +9,9 @@
         style="border-radius: 50%;width:200px; height: 30em; width: 30em;vertical-align: middle;" alt="Avatar">
     </div>
 <br> -->
-    <div fxFlex="80%" >
+    <div fxFlex="80%">
       <!-- <img class="cover" mat-card-image [src]="getSantizeUrl(memberInfo.profilePicPreSignedUrl)"> -->
-      <mat-card class="example-card">      
+      <mat-card class="example-card">
         <mat-card-header>
 
           <div mat-card-avatar class="example-header-image"
@@ -57,10 +57,12 @@
             <mat-tab label="Resources">
               <app-resource></app-resource>
             </mat-tab>
-            <mat-tab label="Friends"> Content 1 </mat-tab>
-            <mat-tab label="Photos"> Content 1 </mat-tab>
-            <mat-tab label="Videos"> Content 2 </mat-tab>
-            <mat-tab label="Files"> Content 3 </mat-tab>
+            <mat-tab label="Photos">
+              <app-image></app-image>
+            </mat-tab>
+            <mat-tab label="Videos">
+              <app-video></app-video>
+            </mat-tab>
           </mat-tab-group>
         </div>
 
