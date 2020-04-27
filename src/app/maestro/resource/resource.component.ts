@@ -78,11 +78,13 @@ export class ResourceComponent implements OnInit {
   }
 
   onSubmit(event) {
+    console.log('Uploading file');
+    console.log(event.target.files);
     this.value = 0;
     this.selectedFile = <File>event.target.files[0];
 
     if (this.selectedFile) {
-      this.httpService.addResource(this.selectedFile).subscribe(
+      this.httpService.addResource(event.target.files).subscribe(
         events => {
           if (events.type === HttpEventType.UploadProgress) {
             //   console.log(Math.round(events.loaded / events.total * 100) + '%');

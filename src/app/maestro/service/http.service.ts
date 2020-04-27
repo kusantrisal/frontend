@@ -48,11 +48,14 @@ export class HttpService {
     return this.http.get(this.MAESTRO_BASE_URL + '/resource/getResourcesByMemberUuid', { withCredentials: false, responseType: 'json' });
   }
 
-  addResource(data) {
+  addResource(files) {
+console.log(files)
     const fd = new FormData();
-    fd.append('name', data.name || 'resourceName');
-    fd.append('file', data);
-
+    for (const file of files || files.addedFiles) {
+      console.log(file.name);
+      fd.append('file', file);
+    }
+    console.log(fd);
     return this.http.post(this.MAESTRO_BASE_URL + '/resource/addResource', fd, { reportProgress: true, observe: 'events' });
   }
 
