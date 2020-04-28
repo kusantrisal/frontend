@@ -58,9 +58,8 @@
   <div class="example-sidenav-content">
 
     <div fxLayout="row wrap " fxLayoutAlign="center center">
-      <div *ngFor="let note of notes" fxFlex="0 0 100%" [ngStyle.gt-sm]="{'margin.px': 12}"
-        fxFlex.gt-sm="1 1 calc(25% - 2px)" fxFlex.gt-lg="1 1 calc(15% - 2px)">
-        <mat-card class="example-card">
+      <div *ngFor="let note of notes" fxFlex="0 0 100%" style="background-color: grey;" >
+        <mat-card class="image-card">
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Shiba Inu</mat-card-title>

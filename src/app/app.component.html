@@ -1,14 +1,22 @@
 <mat-toolbar color="primary" class="navbar">
   <div>
     <span routerLink="/home" routerLinkActive="active">Home</span>
-    <span routerLink="/secure" routerLinkActive="active" *ngIf="authService.isAuthenticated()" >Secure</span>
-    <span routerLink="/maestro" routerLinkActive="active" *ngIf="authService.isAuthenticated()" >Maestro</span>
-
+    <span routerLink="/secure" routerLinkActive="active" *ngIf="authService.isAuthenticated()">Secure</span>
+    <span routerLink="/maestro" routerLinkActive="active" *ngIf="authService.isAuthenticated()">Maestro</span>
   </div>
   <div>
-    <span routerLink="/signin" routerLinkActive="active" *ngIf="!authService.isAuthenticated()" >Sign in</span>
-    <span routerLink="/signup" routerLinkActive="active" *ngIf="!authService.isAuthenticated()" >Sign up</span>
-    <span (click)="authService.logout()" routerLinkActive="active" *ngIf="authService.isAuthenticated()" >Logout</span>
+    <span routerLink="/signin" routerLinkActive="active" *ngIf="!authService.isAuthenticated()">Sign in</span>
+    <span routerLink="/signup" routerLinkActive="active" *ngIf="!authService.isAuthenticated()">Sign up</span>
+    <span (click)="authService.logout()" routerLinkActive="active" *ngIf="authService.isAuthenticated()">Logout</span>
   </div>
 </mat-toolbar>
-<router-outlet></router-outlet>
+
+<div fxFlexFill fxLayout="column">
+  <!-- <h2>{{screenSize}}</h2> -->
+
+  <div fxLayout="colume" fxFlex>
+    <div fxFlex style="margin: 1%;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

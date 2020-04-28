@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { HttpEventType } from '@angular/common/http';
 import { AddResource } from '../../actions/member.actions';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs/operators';
 
@@ -12,6 +12,8 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./image.component.css']
 })
 export class ImageComponent implements OnInit {
+
+  @Select(state => state.member.resources) memberStateResources$;
 
   constructor(
     private httpService: HttpService,
@@ -49,6 +51,7 @@ export class ImageComponent implements OnInit {
             this._snackBar.open('File uploaded', 'Enjoy', {
               duration: 4000,
             });
+            this.files = [];
             this.uploadedPercent = 0;
             this.getResoucesByMemberUuid();
           }

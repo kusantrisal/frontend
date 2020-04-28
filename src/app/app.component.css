@@ -1,33 +1,26 @@
-
-
-/*
-.example-button-row button,
-.example-button-row a {
-  margin-right: 8px;
-} */
+* {
+  font-family: Arial, sans-serif;
+}
 
 .navbar {
   justify-content: space-between;
-  height: 2.8rem;
+   height: 2.8rem; 
 }
 
 span {
   padding-right: 1rem;
   font-size: medium;
-
-  font-weight:normal;
+  font-weight: normal;
   font-style: normal;
   cursor: pointer;
-  display:inline-block;
+  display: inline-block;
   outline: none;
 }
+
 span.active {
-  color: lightgray;
+  color: rgb(35, 150, 20);
 }
+
 span:hover {
   color: lightgray;
 }
-
-* {
-  font-family: Arial, sans-serif;
- }

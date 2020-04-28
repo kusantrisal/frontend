@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from '../service/http.service';
 import { AddMember } from '../actions/member.actions';
 import { Router } from "@angular/router";
@@ -16,8 +16,9 @@ export class ProfileComponent implements OnInit {
 
   showResourcesFlag: boolean;
   memberInfo = {};
-  @Select(state => state.member) memberState$;
 
+  @Select(state => state.member) memberState$;
+  @Select(state => state.member.resources) memberStateResources$;
   formGroup = this.fb.group({
     email: [null, Validators.required],
     phone: [null, Validators.required]
@@ -52,13 +53,10 @@ export class ProfileComponent implements OnInit {
               this.formGroup.get(control).setValue(mem.member[control]);
             });
       }
-
-
     }
   }
 
   save(formControlName) {
-    console.log('Form submitted to update ' + formControlName)
     this.httpService.updatemember(formControlName, this.formGroup.get(formControlName).value).subscribe(res => {
       this.getMember(true);
       this.disableFormGroup();
@@ -82,8 +80,7 @@ export class ProfileComponent implements OnInit {
       .pipe(first())
       .subscribe(
         mem => {
-          console.log(mem.member)
-          if ((mem.member.memberUuid === null || mem.member.memberUuid === '') && forceGetMember) {
+          if ((mem.member.memberUuid === null || mem.member.memberUuid === '') || forceGetMember) {
             this.httpService.getMember().subscribe(
               res => {
                 this.memberInfo = res;

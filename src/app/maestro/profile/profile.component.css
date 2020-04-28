@@ -1,19 +1,11 @@
-.example-card {
-  border: none;
-
+.profile-card {
+  height: 100%;
 }
 .example-header-image {
   background-size: contain;
 }
 
-
-
-.example-form {
-  min-width: 150px;
-  /* max-width: 500px; */
-  width: 100%;
-}
-
+/* email and phone form */
 .example-full-width {
   width: 100%;
 }
@@ -23,4 +15,8 @@
   min-width: 80%;
   height: 400px;
   object-fit: cover;
+}
+
+.mat-tab-labels {
+  justify-content: center;
 }
