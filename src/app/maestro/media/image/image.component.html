@@ -25,7 +25,7 @@
         <mat-card *ngFor="let resource of memberStateResources$ | async" fxFlex fxShrink="0" fxGrow="2" >
             <!-- <p>{{resource | json}}</p> -->
             <div *ngIf="resource.info.mimetype.indexOf('image') > -1"> <img mat-card-image [src]="resource.preSignedUrlForThumbnail"
-                    style="object-fit: cover;"></div>
+                style="min-width: 300px;"></div>
             <div *ngIf="resource.info.mimetype.indexOf('video') > -1"> <video mat-card-image
                     [src]="resource.preSignedUrlForThumbnail" controls> Your
                     browser does not support the video tag. </video></div>
