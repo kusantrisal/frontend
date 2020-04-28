@@ -21,11 +21,11 @@
             style="margin: auto; display: block;"> Upload</button>
     </div>
     <!-- this over laps the last rowfxLayoutAlign="space-around" -->
-    <div fxLayout="row wrap" fxLayoutGap="1px" fxFill >
-        <mat-card *ngFor="let resource of memberStateResources$ | async" fxFlex fxShrink="0" fxGrow="2" >
+    <div fxLayout="row wrap" fxLayoutGap="1px" fxFill>
+        <mat-card *ngFor="let resource of memberStateResources$ | async; let i = index" fxFlex fxShrink="0" fxGrow="2">
             <!-- <p>{{resource | json}}</p> -->
-            <div *ngIf="resource.info.mimetype.indexOf('image') > -1"> <img mat-card-image [src]="resource.preSignedUrlForThumbnail"
-                style="min-width: 300px;"></div>
+            <div *ngIf="resource.info.mimetype.indexOf('image') > -1"> <img mat-card-image
+                    [src]="resource.preSignedUrlForThumbnail" style="min-width: 300px;"></div>
             <div *ngIf="resource.info.mimetype.indexOf('video') > -1"> <video mat-card-image
                     [src]="resource.preSignedUrlForThumbnail" controls> Your
                     browser does not support the video tag. </video></div>
@@ -34,6 +34,13 @@
                 <p>{{resource.info.size }}</p>
                 <P>Uploaded Date: {{resource.createDate}}</P>
             </mat-card-content>
+            <mat-card-footer>
+                <button mat-icon-button (click)="delete(resource.resourceUuid)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+            </mat-card-footer>
+
         </mat-card>
     </div>
 

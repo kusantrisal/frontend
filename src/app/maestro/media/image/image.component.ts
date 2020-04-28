@@ -37,7 +37,13 @@ export class ImageComponent implements OnInit {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
-
+  delete(resourceUuid) {
+    console.log(resourceUuid);
+    this.httpService.deleteResource(resourceUuid).subscribe(
+      res => this.getResoucesByMemberUuid(),
+      err => console.log(err)
+    );
+  }
   onSubmit() {
     this.uploadedPercent = 0;
     if (this.files.length > 0) {

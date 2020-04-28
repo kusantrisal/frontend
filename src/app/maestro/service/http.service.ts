@@ -49,7 +49,7 @@ export class HttpService {
   }
 
   addResource(files) {
-console.log(files)
+    console.log(files)
     const fd = new FormData();
     for (const file of files || files.addedFiles) {
       console.log(file.name);
@@ -57,6 +57,12 @@ console.log(files)
     }
     console.log(fd);
     return this.http.post(this.MAESTRO_BASE_URL + '/resource/addResource', fd, { reportProgress: true, observe: 'events' });
+  }
+
+  deleteResource(resourceUuid) {
+    const params = new HttpParams()
+      .set('resourceUuid', resourceUuid);
+    return this.http.delete(this.MAESTRO_BASE_URL + '/resource/deleteResource', { params: params });
   }
 
 
