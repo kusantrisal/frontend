@@ -14,14 +14,18 @@
       <mat-card class="profile-card">
         <mat-card-header>
 
-          <div mat-card-avatar class="example-header-image"
-            [style.background-image]="'url('+memberInfo.profilePicPreSignedUrl+')'"></div>
+          <!-- Avatar -->
+          <!-- <div mat-card-avatar class="example-header-image"
+            [style.background-image]="'url('+memberInfo.profilePicPreSignedUrl+')'"></div> -->
+
           <!-- <img class="image-holder" [src]=getSantizeUrl(profilePic) />  -->
-          <mat-card-title>{{memberInfo.firstName + ' ' + memberInfo.lastName}}</mat-card-title>
-          <mat-card-subtitle>member since {{memberInfo.createDate}}</mat-card-subtitle>
+          <!-- <mat-card-title>{{memberInfo.firstName + ' ' + memberInfo.lastName}}</mat-card-title>
+          <mat-card-subtitle>member since {{memberInfo.createDate}}</mat-card-subtitle> -->
         </mat-card-header>
 
         <mat-card-content>
+          <mat-card-title>{{memberInfo.firstName + ' ' + memberInfo.lastName}}</mat-card-title>
+          <mat-card-subtitle>member since {{memberInfo.createDate}}</mat-card-subtitle>
           <!-- <pre>{{formGroup.value | json}}</pre> -->
           <form class="example-form" [formGroup]="formGroup">
 
@@ -65,7 +69,7 @@
             </mat-tab-group> -->
           
             <mat-tab-group mat-align-tabs="center">
-              <mat-tab label="Photo">
+              <mat-tab label="Photo" color="accent">
                 <app-image></app-image>
               </mat-tab>
               <mat-tab label="Second">Content 2</mat-tab>

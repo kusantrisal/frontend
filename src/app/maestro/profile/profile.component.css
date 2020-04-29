@@ -20,3 +20,7 @@
 .mat-tab-labels {
   justify-content: center;
 }
+
+mat-card-header{
+  justify-content: center;
+}
