@@ -15,6 +15,7 @@ import { InterceptorService } from './service/http-interceptor/interceptor.servi
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { MaestroModule } from './maestro/maestro.module';
+import { CommunicationModule } from './communication/communication.module';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { MaestroModule } from './maestro/maestro.module';
     AppComponent,
     routingCompoments,
     SecureComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,8 @@ import { MaestroModule } from './maestro/maestro.module';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    MaestroModule
+    MaestroModule,
+    CommunicationModule
   ],
   providers: [AuthService, AuthGuard, {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
   bootstrap: [AppComponent],
