@@ -19,6 +19,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog'; 
 
 const material = [MatButtonModule,
   MatCheckboxModule,
@@ -39,6 +40,7 @@ const material = [MatButtonModule,
   MatDividerModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
+  MatDialogModule,
   MatProgressBarModule];
 @NgModule({
   imports: [material],
