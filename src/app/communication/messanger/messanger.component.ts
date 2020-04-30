@@ -1,18 +1,23 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { WebsocketService } from '../service/websocket/websocket.service';
+import { WebSocketSubject } from 'rxjs/webSocket';
 
 @Component({
   selector: 'app-messanger',
   templateUrl: './messanger.component.html',
   styleUrls: ['./messanger.component.css']
 })
-export class MessangerComponent implements OnInit , OnDestroy{
+export class MessangerComponent implements OnInit, OnDestroy {
 
-  wsObservable = this.wsService.getWebSocket()
+  ws = new WebSocketSubject({
+    url: environment.CHAT_URL,
+    protocol: [sessionStorage.getItem('access_token')]
+  });
+
   socketOpen: boolean = true;
-  constructor(private wsService: WebsocketService) { }
+
+  constructor() { }
 
 
   ngOnInit(): void {
@@ -20,29 +25,14 @@ export class MessangerComponent implements OnInit , OnDestroy{
   }
 
   ngOnDestroy(): void {
- 
-  }
-
-  sendMsg() {
-    //  this.wsService.getWebSocket()
+    console.log('page is being destroued')
     console.log(this.socketOpen)
-    try {
-      if (this.socketOpen) {
-        this.wsService.sendToServer('Hello World');
-      } else if (this.connectWs()) {
-        this.wsService.sendToServer('Hello World');
-      } else {
-        console.error('Unable to send message. Connection down')
-      }
-
-    } catch (e) {
-      console.log(e)
-    }
+    this.disconnectWs();
   }
 
   connectWs() {
     console.log('Connectecting to socket')
-    this.wsObservable.subscribe(
+    this.ws.asObservable().subscribe(
       res => {
         console.log(res);
         this.socketOpen = true
@@ -53,5 +43,38 @@ export class MessangerComponent implements OnInit , OnDestroy{
       }
     );
     return this.socketOpen;
+  }
+
+  sendMsg() {
+
+    try {
+      if (this.socketOpen) {
+        this.ws.next({ message: 'first' })
+      }
+      //reconnect
+      else {
+        this.connectWs();
+        this.ws.next({ message: 'first' })
+      }
+    } catch (e) {
+      //failed try once
+      if (this.connectWs()) {
+        try {
+          this.ws.next({ message: 'first' })
+        } catch (e) {
+          console.log('Opps something is wrong');
+        }
+
+      } else {
+        console.error('Unable to send message. Connection down')
+      }
+    }
+  }
+
+  disconnectWs() {
+    if (this.socketOpen) {
+      this.ws.complete();
+      this.ws.unsubscribe();
+    }
   }
 }

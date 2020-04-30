@@ -8,7 +8,10 @@ import { StorageService } from '../storage/storage.service';
 })
 export class AuthService {
 
-  constructor(private httpService: HttpService, private router: Router, private storageService: StorageService) { }
+  constructor(private httpService: HttpService, 
+    private router: Router, 
+    private storageService: StorageService,
+    ) { }
 
   isAuthenticated() {
     // console.log(new Date(localStorage.getItem('expires')).toLocaleString('en-US', {timeZone: 'America/New_York'}));

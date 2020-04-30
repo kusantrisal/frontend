@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessangerComponent } from './messanger/messanger.component';
+import { AuthService } from '../service/auth/auth.service';
 
 
 
@@ -9,6 +10,7 @@ import { MessangerComponent } from './messanger/messanger.component';
   imports: [
     CommonModule
   ],
+  providers:[AuthService],
   exports: [
     MessangerComponent
   ]

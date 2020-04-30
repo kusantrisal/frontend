@@ -10,7 +10,8 @@ import { Member } from '../model/member.model';
 
 //NOTE withCredentials: false will add Bearer token to header
 export class HttpService {
-  MAESTRO_BASE_URL = 'http://localhost:3000';
+  MAESTRO_BASE_URL = 'https://6kgb426bz7.execute-api.us-east-1.amazonaws.com/dev';
+ // MAESTRO_BASE_URL = 'http://localhost:3000';
   constructor(private http: HttpClient) { }
 
 
@@ -49,13 +50,14 @@ export class HttpService {
   }
 
   addResource(files) {
-    console.log(files)
+
+    const header = new HttpHeaders()//.set("Content-Type", "x-www-form-urlencoded");;
+
     const fd = new FormData();
     for (const file of files || files.addedFiles) {
-      console.log(file.name);
-      fd.append('file', file);
+      fd.append('image', file);
     }
-    console.log(fd);
+  //fd.append('image', files[0]);
     return this.http.post(this.MAESTRO_BASE_URL + '/resource/addResource', fd, { reportProgress: true, observe: 'events' });
   }
 

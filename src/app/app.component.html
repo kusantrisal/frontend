@@ -18,5 +18,6 @@
   <div>
     <router-outlet></router-outlet>
   </div>
-  <app-messanger></app-messanger>
+  
+  <app-messanger *ngIf="authService.isAuthenticated()"></app-messanger>
 </div>

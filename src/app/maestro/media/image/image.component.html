@@ -19,7 +19,7 @@
     </div>
 
     <button mat-raised-button color="accent" *ngIf="files.length" (click)="onSubmit()"
-        style="width: 10%;">Upload</button>
+        style="width: 100%;">Upload</button>
 
     <!-- {{screenSize}} -->
     <button mat-icon-button (click)="getResoucesByMemberUuid()">
@@ -29,7 +29,7 @@
     <div fxFlex fxLayout="column" fxLayoutGap="10px" style="height: 100vh;">
         <div fxLayout="row wrap">
             <!-- loop over the cardList and show the cards -->
-            <div *ngFor="let resource of memberStateResources$ | async; let i = index" fxFlex="25" fxFlex.md="33"
+            <div *ngFor="let resource of memberStateResources$ | async; let i = index"  fxFlex.lg="25" fxFlex.md="33"
                 fxFlex.sm="50" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
                 <!-- cards here -->
                 <mat-card class="mat-elevation-z1">

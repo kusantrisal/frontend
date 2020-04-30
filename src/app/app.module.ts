@@ -23,7 +23,7 @@ import { CommunicationModule } from './communication/communication.module';
     AppComponent,
     routingCompoments,
     SecureComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

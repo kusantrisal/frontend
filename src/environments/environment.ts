@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  CHAT_URL: 'http://localhost:3000/'
+  CHAT_URL: 'ws://localhost:3000'
 };
 
 /*
